@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoria de Fragrâncias Artesanais</title>
+    <style>
+        /* CSS: Define o visual do app */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fdf5f5; color: #4a4a4a; text-align: center; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #8e44ad; }
+        .btn { background-color: #8e44ad; color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-size: 16px; margin: 10px; width: 80%; transition: 0.3s; }
+        .btn:hover { background-color: #732d91; }
+        #resultado { margin-top: 20px; padding: 15px; border-top: 2px solid #eee; display: none; }
+        .dica { font-style: italic; color: #666; font-size: 0.9em; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Encontre sua Fragrância ✨</h1>
+    <p id="pergunta">Que tipo de sensação você prefere sentir ao usar um perfume?</p>
+    
+    <div id="opcoes">
+        <button class="btn" onclick="recomendar('fresco')">Frescor e Energia (Cítricos/Banho tomado)</button>
+        <button class="btn" onclick="recomendar('doce')">Docura e Elegância (Florais/Adocicados)</button>
+        <button class="btn" onclick="recomendar('intenso')">Mistério e Presença (Amadeirados/Marcantes)</button>
+    </div>
+
+    <div id="resultado">
+        <h2 id="produto-nome"></h2>
+        <p id="produto-desc"></p>
+        <div class="dica"><strong>Dica de Especialista:</strong> <span id="dica-texto"></span></div>
+        <button class="btn" onclick="resetar()">Fazer nova consultoria</button>
+    </div>
+</div>
+
+<script>
+
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDR93NON0TOdE54m9zaGVHxhoRrtvA1QmQ",
+  authDomain: "renata-essence.firebaseapp.com",
+  projectId: "renata-essence",
+  storageBucket: "renata-essence.firebasestorage.app",
+  messagingSenderId: "245733706535",
+  appId: "1:245733706535:web:019ebe3c220213042d3702"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+    /* JavaScript: A lógica da consultoria */
+    function recomendar(perfil) {
+        // Esconde as opções e mostra o resultado
+        document.getElementById('opcoes').style.display = 'none';
+        document.getElementById('pergunta').style.display = 'none';
+        const areaResultado = document.getElementById('resultado');
+        areaResultado.style.display = 'block';
+
+        let nome = "";
+        let desc = "";
+        let dica = "";
+
+        // Lógica de decisão baseada no clique do usuário
+        if (perfil === 'fresco') {
+            nome = "Body Splash de Alecrim & Limão Siciliano";
+            desc = "Ideal para o dia a dia e para prolongar a sensação de pós-banho. Perfeito para o clima tropical!";
+            dica = "Aplique no cabelo e na nuca para um rastro de frescor ao caminhar.";
+        } else if (perfil === 'doce') {
+            nome = "Perfume Artesanal Floral Intense";
+            desc = "Inspirado em fragrâncias francesas, traz notas de baunilha e jasmim. Muito elegante.";
+            dica = "Aplique nos pulsos sem esfregar, para não quebrar as moléculas da fragrância.";
+        } else if (perfil === 'intenso') {
+            nome = "Perfume de Ambiente & Corporal Wood Gold";
+            desc = "Uma fragrância marcante com notas amadeiradas. Transmite poder e sofisticação.";
+            dica = "Borrife no interior do carro ou em cortinas para manter o ambiente sempre perfumado.";
+        }
+
+        // Preenche os dados na tela
+        document.getElementById('produto-nome').innerText = nome;
+        document.getElementById('produto-desc').innerText = desc;
+        document.getElementById('dica-texto').innerText = dica;
+    }
+
+    function resetar() {
+        // Volta o app ao estado inicial
+        document.getElementById('opcoes').style.display = 'block';
+        document.getElementById('pergunta').style.display = 'block';
+        document.getElementById('resultado').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
